@@ -5,6 +5,8 @@
   "author": "sunrabbit123 <qudwls185@naver.com>",
   "license": "SPDX",
   "scripts": {
+    "start": "sls offline start",
+    "deploy": "sls deploy"
   },
   "dependencies": {
     "axios": "^0.21.1",

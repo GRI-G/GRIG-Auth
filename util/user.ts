@@ -3,8 +3,8 @@ import { DocumentType } from "@typegoose/typegoose";
 
 import { CodeModel } from "../model/code";
 import { UserModel, Users } from "../model/users";
-import { UserDTO } from "../src/DTO";
-import { GithubAPI } from "../src/util";
+import { UserDTO } from "../DTO";
+import { GithubAPI } from "../util";
 import { BeAnObject } from "@typegoose/typegoose/lib/types";
 import { connectMongoDB } from "./db";
 
