@@ -1,0 +1,59 @@
+service: github-ranking-for-gsm
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: ap-northeast-2
+  stage: api
+  lambdaHashingVersion: 20201221
+
+resources:
+  Resources:
+    GatewayResponseDefault4XX:
+      Type: "AWS::ApiGateway::GatewayResponse"
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: "ApiGatewayRestApi"
+    GatewayResponseDefault5XX:
+      Type: "AWS::ApiGateway::GatewayResponse"
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_5XX
+        RestApiId:
+          Ref: "ApiGatewayRestApi"
+
+functions:
+  auth:
+    handler: auth.authUserByOAuth
+    events:
+      - http:
+          path: auth
+          method: get
+          cors: false
+  email_auth:
+    handler: auth.authUserByEmail
+    events:
+      - http:
+          path: email/{token}
+          method: get
+          cors: false
+  send_email:
+    handler: auth.authEmail
+    events:
+      - http:
+          path: send-email
+          method: post
+          cors: false
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+  - serverless-dotenv-plugin
