@@ -4,9 +4,9 @@ useDotenv: true
 
 provider:
   name: aws
-  runtime: nodejs16.x
+  runtime: nodejs14.x
   region: ap-northeast-2
-  stage: api
+  stage: auth
   lambdaHashingVersion: 20201221
 
 resources:
